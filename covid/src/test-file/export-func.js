@@ -5,3 +5,7 @@ export default function getExportDefault() {
 export function getJustExport() {
   alert('Just export');
 }
+
+export function getF() {
+  alert('wtf');
+}

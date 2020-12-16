@@ -1,0 +1,46 @@
+@mixin h1($color) {
+    font-family: Roboto;
+    font-size: 2.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: $color;
+}
+@mixin h2($color) {
+    font-family: Roboto;
+    font-size: 2rem;
+    font-weight: 400;
+    color: $color;
+}
+@mixin h3($color) {
+    font-family: Roboto;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $color;
+}
+@mixin h4($color) {
+    font-family: Roboto;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $color;
+}
+@mixin table-title($color) {
+    font-family: Roboto;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $color;
+}
+@mixin table-subtitle($color) {
+    font-family: Roboto;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $color;
+}
+@mixin table-subtitle-count($color) {
+    font-family: Roboto;
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 0.06;
+    text-transform: uppercase;
+    color: $color;
+}

@@ -1,7 +1,8 @@
 import * as L from 'leaflet';
 import data from '../countries.json';
-import getDataObject from '../data/data';
+// import getDataObject from '../data/data';
 
+let arrData = [];
 const markers = [];
 const mapOptions = {
   center: [17.385044, 78.486671],
@@ -47,7 +48,7 @@ legend.addTo(map);
 function getTooltip(layer, propIso3) {
   // markers.forEach((marker) => map.removeLayer(marker));
   markers.forEach((marker) => marker.bringToFront());
-  const objData = getDataObject();
+  const objData = arrData;
   if (objData.propForCoords) {
     const element = objData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
     if (element) {
@@ -127,4 +128,5 @@ function getCircleCases(obj) {
 
 export default function getDefaultMap(obj) {
   getCircleCases(obj);
+  arrData = obj;
 }

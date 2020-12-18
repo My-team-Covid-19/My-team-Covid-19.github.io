@@ -1,4 +1,5 @@
 import getPage from '../page/render';
+import * as globalOneDay from './globalOneDay.json';
 
 const urls = [
   'https://api.covid19api.com/summary',
@@ -13,6 +14,7 @@ const data = {
   countriesData: '',
   flagsAndPopulations: '',
   propForCoords: '',
+  globalOneDay: '',
 };
 
 Promise.all(requests)
@@ -23,6 +25,7 @@ Promise.all(requests)
       data.countriesData = values[0].Countries;
       [data.flagsAndPopulations] = [values[1]];
       [data.propForCoords] = [values[2]];
+      data.globalOneDay = globalOneDay;
       return data;
     });
   }).then((obj) => getPage(obj));

@@ -72,9 +72,9 @@ function highlightFeature(e) {
   const layer = e.target;
 
   layer.setStyle({
-    fillColor: '#666',
+    fillColor: 'black',
     dashArray: '',
-    fillOpacity: 0.9,
+    fillOpacity: 0.8,
   });
 
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {

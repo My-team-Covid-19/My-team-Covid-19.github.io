@@ -9,7 +9,7 @@ const mapOptions = {
 };
 
 const map = new L.Map('map', mapOptions);
-const layerMain = new L.TileLayer('http://{s}.tiles.wmflabs.org/мт-Mapnik/{г}/{х}/{у}.png');
+const layerMain = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 map.addLayer(layerMain);
 
 const info = L.control();
@@ -64,7 +64,7 @@ function style() {
     opacity: 1,
     color: 'gray',
     dashArray: '3',
-    fillOpacity: 0.6,
+    fillOpacity: 0.7,
   };
 }
 

@@ -64,7 +64,7 @@ function style() {
     opacity: 1,
     color: 'gray',
     dashArray: '3',
-    fillOpacity: 0.7,
+    fillOpacity: 0.6,
   };
 }
 

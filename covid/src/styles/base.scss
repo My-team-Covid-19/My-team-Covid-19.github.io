@@ -155,6 +155,7 @@ body {
 }
 
 .map-wrapper {
+    filter: grayscale(70%);
     grid-area: map-wrapper;
     position: relative;
     background: $soft-grey;

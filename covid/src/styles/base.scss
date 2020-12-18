@@ -45,7 +45,7 @@ body {
     display: grid;
     grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-areas: 
+    grid-template-areas:
     "header header header header header"
     "table2 map-wrapper map-wrapper table1 table1"
     "table2 map-wrapper map-wrapper table1 table1"
@@ -59,7 +59,7 @@ body {
     @media only screen and (max-width: 1023px) {
         grid-template-rows: 6rem 60rem 60rem 30rem 6rem;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "header header header header header"
         "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
         "table2 table2 table1 table1 table1"
@@ -75,7 +75,7 @@ body {
     &.table1-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "header header header header header"
         "table1 table1 table1 table1 table1"
         "table1 table1 table1 table1 table1"
@@ -85,7 +85,7 @@ body {
     &.table2-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "header header header header header"
         "table2 table2 table2 table2 table2"
         "table2 table2 table2 table2 table2"
@@ -95,7 +95,7 @@ body {
     &.graph-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "header header header header header"
         "graph graph graph graph graph"
         "graph graph graph graph graph"
@@ -105,7 +105,7 @@ body {
     &.map-wrapper-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "header header header header header"
         "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
         "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"

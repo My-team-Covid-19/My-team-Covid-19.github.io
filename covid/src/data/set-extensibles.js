@@ -20,15 +20,15 @@ document.querySelector('body').addEventListener('click', (e) => {
     const otherExArr = ([...extensibleElems].filter((elem) => elem !== currentEx));
 
     if (document.body.hasAttribute('extended')) {
+      currentEx.querySelector('.extend > i').textContent = 'fullscreen';
       otherExArr.forEach((ex) => ex.classList.remove('hidden'));
       document.body.classList.remove(`${currentEx.className}-full`);
       document.body.removeAttribute('extended');
-      currentEx.querySelector('i').textContent = 'fullscreen';
     } else {
+      currentEx.querySelector('.extend > i').textContent = 'fullscreen_exit';
       otherExArr.forEach((ex) => ex.classList.add('hidden'));
       document.body.classList.add(`${currentEx.className}-full`);
       document.body.setAttribute('extended', `${currentEx.className}`);
-      currentEx.querySelector('i').textContent = 'fullscreen_exit';
     }
   }
 });

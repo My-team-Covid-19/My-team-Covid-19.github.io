@@ -24,7 +24,6 @@
     i {
         font-size: 2rem;
         color: $mid-black;
-        transform: rotate(-45deg);
     }
     &:hover {
         cursor: pointer;
@@ -69,9 +68,6 @@ body {
         min-height: 100vh;
         height: 100%;
     }
-    @media only screen and (max-width: 768px) {
-        grid-template-rows: 5rem 50rem 40rem 25rem 5rem;
-    }
     &.table1-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
         grid-template-columns: repeat(5, 1fr);
@@ -112,6 +108,9 @@ body {
         "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
         "footer footer footer footer footer";
     }
+    @media only screen and (max-width: 768px) {
+        grid-template-rows: 5rem 50rem 40rem 25rem 5rem;
+    }
 }
 
 .header {
@@ -144,28 +143,60 @@ body {
     grid-area: table1;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
 }
 
 .table2 {
     grid-area: table2;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
+    .control {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 3rem;
+        border-bottom: 1px solid $mid-grey;
+        i {
+            font-size: 2rem;
+            color: $mid-grey;
+            transition: color ease 250ms;
+            &:hover {
+                cursor: pointer;
+                color: $soft-white;
+            }
+        }
+        &-title {
+            @include h3($soft-white);
+        }
+    }
+    
+    @media only screen and (max-width: 650px) {
+        .control {
+            i {
+                font-size: 1.8rem;
+            }
+            &-title {
+                font-size: 1.6rem;
+            }
+        }
+    }
 }
 
 .map-wrapper {
     grid-area: map-wrapper;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
 }
 
 .graph {
     grid-area: graph;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
 }
 
 .footer {

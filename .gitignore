@@ -29,6 +29,7 @@ coverage
 .grunt
 
 # Bower dependency directory (https://bower.io/)
+dist
 bower_components
 
 # node-waf configuration
@@ -80,7 +81,6 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/

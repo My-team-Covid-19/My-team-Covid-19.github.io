@@ -12,6 +12,181 @@
     outline: none;
 }
 
+.extend {
+    position: absolute;
+    top: 0;
+    left: calc(100% - 2rem);
+    width: 2rem;
+    height: 2rem;
+    background-color: $soft-white;
+    opacity: 0.3;
+    transition: all ease 250ms;
+    i {
+        font-size: 2rem;
+        color: $mid-black;
+        transform: rotate(-45deg);
+    }
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+html {
+    font-size: 10px;
+}
+
 body {
-    background: greenyellow;
+    background-color: $mid-black;
+    display: grid;
+    grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas:
+    "header header header header header"
+    "table2 map-wrapper map-wrapper table1 table1"
+    "table2 map-wrapper map-wrapper table1 table1"
+    "table2 map-wrapper map-wrapper graph graph"
+    "footer footer footer footer footer";
+    flex-direction: column;
+    grid-gap: 1rem;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    @media only screen and (max-width: 1023px) {
+        grid-template-rows: 6rem 60rem 60rem 30rem 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "table2 table2 table1 table1 table1"
+        "graph graph graph graph graph"
+        "footer footer footer footer footer";
+        width: 100%;
+        min-height: 100vh;
+        height: 100%;
+    }
+    @media only screen and (max-width: 768px) {
+        grid-template-rows: 5rem 50rem 40rem 25rem 5rem;
+    }
+    &.table1-full {
+        grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "table1 table1 table1 table1 table1"
+        "table1 table1 table1 table1 table1"
+        "table1 table1 table1 table1 table1"
+        "footer footer footer footer footer";
+    }
+    &.table2-full {
+        grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "table2 table2 table2 table2 table2"
+        "table2 table2 table2 table2 table2"
+        "table2 table2 table2 table2 table2"
+        "footer footer footer footer footer";
+    }
+    &.graph-full {
+        grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "graph graph graph graph graph"
+        "graph graph graph graph graph"
+        "graph graph graph graph graph"
+        "footer footer footer footer footer";
+    }
+    &.map-wrapper-full {
+        grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "footer footer footer footer footer";
+    }
+}
+
+.header {
+    grid-area: header;
+    background-color: $soft-grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    .corona {
+        margin: 0 0.5rem;
+        font-size: 3rem;
+        color: $soft-white;
+    }
+    .title {
+        @include h1($soft-white);
+    }
+    @media only screen and (max-width: 1023px) {
+        position: fixed;
+        z-index: 90;
+        top: 0;
+        width: 100%;
+        min-width: 48rem;
+        box-shadow: 0 0.3rem 0.3rem 0 rgba(0, 0, 0, 0.24), 0 0.8rem 0.8rem 0 rgba(0, 0, 0, 0.48);
+    }
+}
+
+.table1 {
+    grid-area: table1;
+    position: relative;
+    background: $soft-grey;
+    border: 0.1rem solid grey;
+}
+
+.table2 {
+    grid-area: table2;
+    position: relative;
+    background: $soft-grey;
+    border: 0.1rem solid grey;
+}
+
+.map-wrapper {
+    filter: grayscale(70%);
+    grid-area: map-wrapper;
+    position: relative;
+    background: $soft-grey;
+    border: 0.1rem solid grey;
+}
+
+.graph {
+    grid-area: graph;
+    position: relative;
+    background: $soft-grey;
+    border: 0.1rem solid grey;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: $soft-grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    .course-logo {
+        width: 8rem;
+        height: 4rem;
+    }
+    .authors {
+        display: flex;
+        flex-direction: column;
+        margin: 1rem 0;
+        .author {
+            @include h4($soft-white);
+        }
+    }
 }

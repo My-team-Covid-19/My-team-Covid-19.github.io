@@ -1,2 +1,5 @@
 import './styles/index.scss';
-import './test-file/test';
+import './data/data';
+import './map/map';
+import './page/set-extensibles';
+import './chart/chart';

@@ -1,6 +1,5 @@
 import * as L from 'leaflet';
 import data from '../countries.json';
-// import getDataObject from '../data/data';
 
 let arrData = [];
 const markers = [];

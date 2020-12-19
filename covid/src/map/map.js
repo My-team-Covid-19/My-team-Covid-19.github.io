@@ -22,7 +22,7 @@ info.onAdd = function createDiv() {
 
 info.update = function updateDiv(props) {
   this.div.innerHTML = `<h4>${props
-    ? `<b>${props.country}</b></h4>tests: ${props.tests}<br/>cases: ${props.cases}
+    ? `<b>${props.country}</b></h4>tests: ${props.tests}<br/>confirmed: ${props.cases}
     <br/>active: ${props.active}<br/>deaths: ${props.deaths}<br/>recovered: ${props.recovered}`
     : 'Hover over a country'}`;
 };
@@ -35,7 +35,7 @@ legend.onAdd = () => {
   const div = L.DomUtil.create('div', 'info legend');
   const colors = [];
 
-  colors.push('<div><i style="background: red"></i><span>cases</span></div>');
+  colors.push('<div><i style="background: red"></i><span>confirmed</span></div>');
   colors.push('<div><i style="background: green"></i><span>recovered</span></div>');
   colors.push('<div><i style="background: blue"></i><span>deaths</span></div>');
   div.innerHTML = colors.join('');
@@ -51,7 +51,7 @@ function getTooltip(layer, propIso3) {
   if (objData.propForCoords) {
     const element = objData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
     if (element) {
-      layer.bindTooltip(`${element.country}, cases: ${element.cases}`).openTooltip();
+      layer.bindTooltip(`${element.country}, confirmed: ${element.cases}`).openTooltip();
       info.update(element);
     }
   }

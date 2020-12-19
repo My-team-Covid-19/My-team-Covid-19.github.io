@@ -6,6 +6,9 @@ const markers = [];
 const mapOptions = {
   center: [17.385044, 78.486671],
   zoom: 2,
+  minZoom: 2,
+  maxBounds: ([[-90, -180], [90, 180]]),
+  maxBoundsViscosity: 1,
 };
 
 const map = new L.Map('map', mapOptions);

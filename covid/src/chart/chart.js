@@ -10,7 +10,7 @@ class OneDay {
 function getConfirmed(obj) {
   const result = [];
   for (let i = 0; i < obj.length; i += 1) {
-    result.push(new OneDay(obj[i].date, obj[i].confirmed));
+    result.push(new OneDay(obj[i].date, obj[i].new_confirmed));
   }
   return result;
 }
@@ -18,14 +18,11 @@ function getConfirmed(obj) {
 export default function getDefaultChart(data) {
   const ctx = document.getElementById('chart').getContext('2d');
   const chartConfig = {
-    type: 'scatter',
+    type: 'bar',
     data: {
       datasets: [{
         label: 'Total confirmed',
         backgroundColor: '#7d1111',
-        borderColor: '#7d1111',
-        borderWidth: 2,
-        fill: false,
         data: getConfirmed(data.globalOneDay),
       }],
     },

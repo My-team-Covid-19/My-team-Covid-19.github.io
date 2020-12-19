@@ -25,7 +25,7 @@ info.onAdd = function createDiv() {
 
 info.update = function updateDiv(props) {
   this.div.innerHTML = `<h4>${props
-    ? `<b>${props.country}</b></h4>tests: ${props.tests}<br/>confirmed: ${props.cases}
+    ? `<b>${props.country}</b><br/>Total</h4>tests: ${props.tests}<br/>confirmed: ${props.cases}
     <br/>active: ${props.active}<br/>deaths: ${props.deaths}<br/>recovered: ${props.recovered}`
     : 'Hover over a country'}`;
 };

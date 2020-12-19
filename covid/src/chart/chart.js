@@ -21,7 +21,7 @@ export default function getDefaultChart(data) {
     type: 'scatter',
     data: {
       datasets: [{
-        label: 'confirmed',
+        label: 'Total confirmed',
         backgroundColor: '#7d1111',
         borderColor: '#7d1111',
         borderWidth: 2,

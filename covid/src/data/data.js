@@ -7,6 +7,8 @@ const urls = [
   'https://corona.lmao.ninja/v2/countries',
 ];
 
+// https://api.covid19api.com/total/country/south-africa/status/confirmed?from=2020-12-17T00:00:00Z&to=2020-12-19T00:00:00Z
+
 const requests = urls.map((url) => fetch(url));
 
 const data = {

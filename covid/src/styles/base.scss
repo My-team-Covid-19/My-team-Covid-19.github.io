@@ -12,6 +12,11 @@
     outline: none;
 }
 
+li {
+    list-style-type: none;
+    marker: none;
+}
+
 .extend {
     position: absolute;
     top: 0;
@@ -24,7 +29,6 @@
     i {
         font-size: 2rem;
         color: $mid-black;
-        transform: rotate(-45deg);
     }
     &:hover {
         cursor: pointer;
@@ -33,7 +37,7 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 html {
@@ -57,11 +61,12 @@ body {
     height: 100vh;
     overflow-x: hidden;
     @media only screen and (max-width: 1023px) {
-        grid-template-rows: 6rem 60rem 60rem 30rem 6rem;
+        grid-template-rows: 6rem 60rem 30rem 30rem 30rem 6rem;
         grid-template-columns: repeat(5, 1fr);
         grid-template-areas:
         "header header header header header"
         "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "table2 table2 table1 table1 table1"
         "table2 table2 table1 table1 table1"
         "graph graph graph graph graph"
         "footer footer footer footer footer";
@@ -70,7 +75,18 @@ body {
         height: 100%;
     }
     @media only screen and (max-width: 768px) {
-        grid-template-rows: 5rem 50rem 40rem 25rem 5rem;
+        grid-template-rows: 6rem 60rem 60rem 60rem 30rem 6rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas:
+        "header header header header header"
+        "map-wrapper map-wrapper map-wrapper map-wrapper map-wrapper"
+        "table2 table2 table2 table2 table2"
+        "table1 table1 table1 table1 table1"
+        "graph graph graph graph graph"
+        "footer footer footer footer footer";
+        width: 100%;
+        min-height: 100vh;
+        height: 100%;
     }
     &.table1-full {
         grid-template-rows: 6rem 1fr 1fr 1fr 6rem;
@@ -144,14 +160,173 @@ body {
     grid-area: table1;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
+    .control {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 6rem;
+        .button {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            width: 40%;
+            min-width: 10rem;
+            height: 4rem;
+            background-color: $mid-black;
+            transition: all ease 150ms;
+            border: 0rem solid $light-green;
+            border-radius: 0.3rem;
+            i {
+                font-size: 3.2rem;
+                color: $soft-white;
+            }
+            span {
+                @include button-text($soft-white);
+            }
+            &:hover {
+                cursor: pointer;
+                border: 0.3rem solid $light-green;
+            }
+        }
+    }
+    .table {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-width: 30rem;
+        border: none;
+        border-spacing: 0;
+        .head {
+            display: flex;
+            width: 100%;
+            background-color: $mid-grey;
+            border-bottom: 0.1rem solid $mid-grey;
+            transition: all ease 300ms;
+            span {
+                @include table-th-text($soft-white);
+                display: block;
+                width: 25%;
+                &.name {
+                    width: 40%;
+                }
+                &.count {
+                    width: 20%;
+                    text-align: end;
+                    padding-right: 1.6rem;
+                }
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgba($mid-grey, 0.3);
+                }
+            }
+        }
+        .body {
+            display: grid;
+            grid-template-rows: repeat(auto-fill, 2rem);
+            overflow-y: auto;
+            .item {
+                &:nth-child(2n+1) {
+                    background-color: $mid-black;
+                }
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                .td {
+                    text-align: start;
+                    @include table-td-text($soft-white);
+                    &.count {
+                        text-align: end;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .table2 {
     grid-area: table2;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
+    .control {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 3rem;
+        border-bottom: 1px solid $mid-grey;
+        i {
+            font-size: 2rem;
+            color: $mid-grey;
+            transition: color ease 250ms;
+            &:hover {
+                cursor: pointer;
+                color: $soft-white;
+            }
+        }
+        &-title {
+            @include h3($soft-white);
+        }
+    }
+    .title {
+        @include table-title($soft-white);
+        margin-top: 0.6rem;
+    }
+    .subtitle {
+        @include table-subtitle($soft-white);
+        margin-top: 0.3rem;
+        letter-spacing: 0.1rem;
+        color: $light-red;
+    }
+    .country-list {
+        overflow-y: auto;
+        width: 100%;
+        margin-top: 0.6rem;
+        border-top: 0.1rem solid $mid-grey;
+        &-item {
+            @include list-item($soft-white);
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0.6rem;
+            @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+                padding: 0 0.3rem;
+                flex-direction: column;
+                justify-content: start;
+                align-items: flex-start;
+                .img {
+                    width: 1.8rem;
+                    height: 1.2rem;
+                }
+                .name {
+                    font-size: 1.6rem;
+                }
+                .count {
+                    font-size: 1.4rem;
+                }
+            }
+            &:nth-child(2n+1) {
+                background-color: $mid-black;
+            }
+        }
+    }
+    @media only screen and (max-width: 650px) {
+        .control {
+            i {
+                font-size: 1.8rem;
+            }
+            &-title {
+                font-size: 1.6rem;
+            }
+        }
+    }
 }
 
 .map-wrapper {
@@ -159,14 +334,14 @@ body {
     grid-area: map-wrapper;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
 }
 
 .graph {
     grid-area: graph;
     position: relative;
     background: $soft-grey;
-    border: 0.1rem solid grey;
+    border: 0.1rem solid $mid-grey;
 }
 
 .footer {

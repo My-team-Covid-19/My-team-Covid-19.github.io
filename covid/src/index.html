@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,11 +15,28 @@
         <h1 class="title">Covid-dashboard</h1>
         <i class="corona material-icons">coronavirus</i>
     </header>
-    <section extensible class="map-wrapper">
-        covid-map
+    <section extensible class="map-wrapper" id="map">
     </section>
     <section extensible class="table1">
-        table-1
+        <div class="control">
+            <div mode="0" class="date button">
+                <i class="material-icons">today</i>
+                <span>All Time</span>
+            </div>
+            <div mode="0" class="population button">
+                <i class="material-icons">supervisor_account</i>
+                <span>All Cases</span>
+            </div>
+        </div>
+        <div class="table">
+            <div class="head">
+                <span class="name">Country</span>
+                <span class="count">Cases</span>
+                <span class="count">Death</span>
+                <span class="count">Recover</span>
+            </div>
+            <div class="body"></div>
+        </div>
     </section>
     <section extensible class="table2">
         <div class="control">
@@ -26,8 +44,11 @@
             <span class="control-title">category_name</span>
             <i class="material-icons right">chevron_right</i>
         </div>
-        <h2 class="title">Country list</h2>
-        <p class="counter"></p>
+        <h2 class="title"></h2>
+        <p class="subtitle"></p>
+        <ul class="country-list">
+            <li class="country-list-item"></li>
+        </ul>
     </section>
     <section extensible class="graph">
         graph

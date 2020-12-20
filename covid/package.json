@@ -37,6 +37,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "leaflet": "^1.7.1",
     "normalize.css": "^8.0.1"
   }
 }

@@ -4,6 +4,7 @@ const urls = [
   'https://api.covid19api.com/summary',
   'https://restcountries.eu/rest/v2/all?fields=name;population;flag',
   'https://corona.lmao.ninja/v2/countries',
+  'https://corona-api.com/timeline',
 ];
 
 const requests = urls.map((url) => fetch(url));
@@ -13,6 +14,7 @@ const data = {
   countriesData: '',
   flagsAndPopulations: '',
   propForCoords: '',
+  globalOneDay: '',
 };
 
 Promise.all(requests)
@@ -23,6 +25,7 @@ Promise.all(requests)
       data.countriesData = values[0].Countries;
       [data.flagsAndPopulations] = [values[1]];
       [data.propForCoords] = [values[2]];
+      data.globalOneDay = [values[3]][0].data;
       return data;
     });
   }).then((obj) => getPage(obj));

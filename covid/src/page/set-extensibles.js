@@ -1,3 +1,5 @@
+import { getMap } from '../map/map';
+
 const extensibleElems = document.querySelectorAll('[extensible]');
 const container = document.querySelector('.table1');
 const tableBody = document.querySelector('.table > .body');
@@ -34,6 +36,7 @@ document.querySelector('body').addEventListener('click', (e) => {
       document.body.classList.add(`${currentEx.className}-full`);
       document.body.setAttribute('extended', `${currentEx.className}`);
     }
+    (async () => getMap().invalidateSize())();
     setHeight();
   }
 });

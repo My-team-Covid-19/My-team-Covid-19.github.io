@@ -206,3 +206,7 @@ export default function getDefaultMap(obj) {
   getCircleCases(obj);
   arrData = obj;
 }
+
+export function getMap() {
+  return map;
+}

@@ -4,6 +4,7 @@ import data from '../countries.json';
 let activeLayer = '';
 let arrData = [];
 const markers = [];
+let iso3Country = 0;
 const mapOptions = {
   center: [17.385044, 78.486671],
   zoom: 2,
@@ -118,11 +119,11 @@ function changeCenterMap(propIso3) {
   }
 }
 
-function changeMap(layer) { // for future
+function changeMap(layer) {
   const propIso3 = layer.feature.properties.ISO_A3;
   changeCenterMap(propIso3);
   changeStyles(layer);
-  // console.log(propIso3);
+  iso3Country = propIso3;
 }
 
 function getCountryFromMap(e) {
@@ -209,4 +210,8 @@ export default function getDefaultMap(obj) {
 
 export function getMap() {
   return map;
+}
+
+export function getIso3Country() {
+  return iso3Country;
 }

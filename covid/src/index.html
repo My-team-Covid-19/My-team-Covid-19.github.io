@@ -15,7 +15,9 @@
         <h1 class="title">Covid-dashboard</h1>
         <i class="corona material-icons">coronavirus</i>
     </header>
-    <section extensible class="map-wrapper" id="map">
+    <section extensible class="map-wrapper">
+        <div class="controls"></div>
+        <div class="map-container" id="map"></div>
     </section>
     <section extensible class="table1">
         <div class="control">
@@ -51,7 +53,15 @@
         </ul>
     </section>
     <section extensible class="graph">
-        graph
+        <div class="control">
+            <i class="material-icons left">chevron_left</i>
+            <span class="control-title">category_name</span>
+            <i class="material-icons right">chevron_right</i>
+        </div>
+        <div class="graph-container">
+            <canvas id="chart" style="width: 90%; height: 100%">
+            </canvas>
+        </div>
     </section>
     <footer class="footer">
         <a href="https://rs.school/">

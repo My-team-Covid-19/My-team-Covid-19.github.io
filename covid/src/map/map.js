@@ -50,10 +50,8 @@ legend.addTo(map);
 
 function getTooltip(layer, propIso3) {
   // markers.forEach((marker) => map.removeLayer(marker));
-  markers.forEach((marker) => marker.bringToFront());
-  const objData = arrData;
-  if (objData.propForCoords) {
-    const element = objData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
+  if (arrData.propForCoords) {
+    const element = arrData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
     if (element) {
       layer.bindTooltip(`${element.country}, confirmed: ${element.cases}`).openTooltip();
       info.update(element);
@@ -89,6 +87,7 @@ function highlightFeature(e) {
     layer.bringToFront();
   }
   getTooltip(layer, layer.feature.properties.ISO_A3);
+  markers.forEach((marker) => marker.bringToFront());
 }
 
 let geojson;
@@ -98,18 +97,37 @@ function resetHighlight(e) {
   if (layer !== activeLayer) {
     geojson.resetStyle(e.target);
     layer.bringToBack();
-    info.update();
   }
+  info.update();
 }
 
-function getCountryFromMap(e) { // for future
-  const layer = e.target;
-  console.log(layer.feature.properties.ISO_A3);
+function changeStyles(layer) {
   if (activeLayer) {
     activeLayer.setStyle(style());
   }
   activeLayer = layer;
   layer.setStyle(styleHover());
+}
+
+function changeCenterMap(propIso3) {
+  if (arrData.propForCoords) {
+    const element = arrData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
+    if (element) {
+      map.setView([element.countryInfo.lat, element.countryInfo.long]);
+    }
+  }
+}
+
+function changeMap(layer) { // for future
+  const propIso3 = layer.feature.properties.ISO_A3;
+  changeCenterMap(propIso3);
+  changeStyles(layer);
+  // console.log(propIso3);
+}
+
+function getCountryFromMap(e) {
+  const layer = e.target;
+  changeMap(layer);
 }
 
 function onEachFeature(feature, layer) {
@@ -124,6 +142,38 @@ geojson = L.geoJson(data, {
   style,
   onEachFeature,
 }).addTo(map);
+
+function findLayer(latLong) {
+  const element = arrData.propForCoords
+    .find((el) => (el.countryInfo.lat === latLong.lat) && (el.countryInfo.long === latLong.lng));
+  info.update(element);
+  const layers = geojson.getLayers();
+  return layers.find((el) => el.feature.properties.ISO_A3 === element.countryInfo.iso3);
+}
+
+function getHoverCountry(e) {
+  const latLong = e.target.getLatLng();
+  const layer = findLayer(latLong);
+  layer.setStyle(styleHover());
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    layer.bringToFront();
+  }
+  markers.forEach((marker) => marker.bringToFront());
+}
+
+function resetHoverCountry(e) {
+  const latLong = e.target.getLatLng();
+  const layer = findLayer(latLong);
+  geojson.resetStyle(layer);
+  layer.bringToBack();
+  info.update();
+}
+
+function clickCircle(e) {
+  const latLong = e.target.getLatLng();
+  const layer = findLayer(latLong);
+  changeMap(layer);
+}
 
 function getCircleCases(obj) {
   const circleOptions = {
@@ -142,7 +192,13 @@ function getCircleCases(obj) {
     const radius = Math.sqrt(obj.propForCoords[i].cases) * jusCoefficient;
     const circle = L.circle(circleCenter, radius, circleOptions);
     markers.push(circle);
-    circle.addTo(map);
+    circle.on({
+      mouseover: getHoverCountry,
+      mouseout: resetHoverCountry,
+      click: clickCircle,
+    });
+    circle.addTo(map)
+      .bindTooltip(`${obj.propForCoords[i].country}, confirmed: ${obj.propForCoords[i].cases}`);
   }
 }
 

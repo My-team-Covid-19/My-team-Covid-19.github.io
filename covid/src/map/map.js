@@ -1,6 +1,7 @@
 import * as L from 'leaflet';
 import data from '../countries.json';
 
+let activeLayer = '';
 let arrData = [];
 const markers = [];
 const mapOptions = {
@@ -71,14 +72,18 @@ function style() {
   };
 }
 
-function highlightFeature(e) {
-  const layer = e.target;
-
-  layer.setStyle({
+function styleHover() {
+  return {
     fillColor: 'black',
     dashArray: '',
     fillOpacity: 0.8,
-  });
+  };
+}
+
+function highlightFeature(e) {
+  const layer = e.target;
+
+  layer.setStyle(styleHover());
 
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
     layer.bringToFront();
@@ -90,15 +95,28 @@ let geojson;
 
 function resetHighlight(e) {
   const layer = e.target;
-  geojson.resetStyle(e.target);
-  layer.bringToBack();
-  info.update();
+  if (layer !== activeLayer) {
+    geojson.resetStyle(e.target);
+    layer.bringToBack();
+    info.update();
+  }
+}
+
+function getCountryFromMap(e) { // for future
+  const layer = e.target;
+  console.log(layer.feature.properties.ISO_A3);
+  if (activeLayer) {
+    activeLayer.setStyle(style());
+  }
+  activeLayer = layer;
+  layer.setStyle(styleHover());
 }
 
 function onEachFeature(feature, layer) {
   layer.on({
     mouseover: highlightFeature,
     mouseout: resetHighlight,
+    click: getCountryFromMap,
   });
 }
 

@@ -1,4 +1,4 @@
-export default function showTable(data) {
+export default function showTable(rebased, data) {
   const container = document.querySelector('.table1');
   const tableBody = document.querySelector('.table > .body');
   const populationBtn = document.querySelector('.population.button');
@@ -9,9 +9,9 @@ export default function showTable(data) {
     ['casesPer100k', 'deathsPer100k', 'recoveredPer100k'],
     ['todayCasesPer100k', 'todayDeathsPer100k', 'todayRecoveredPer100k'],
   ];
-  const rebasedData = data.slice();
+  const rebasedData = rebased.slice();
   const setHeight = () => {
-    tableBody.style = `height: ${container.offsetHeight - 83}px`;
+    tableBody.style = `height: ${container.offsetHeight - 153}px`;
   };
   const updateTable = (selectorIndex) => {
     tableBody.innerHTML = '';
@@ -33,6 +33,13 @@ export default function showTable(data) {
       row.append(cellCountry, cellCases, cellDeaths, cellRecovered);
       tableBody.append(row);
     });
+  };
+  const setGlobal = () => {
+    const globalRecoverElem = document.querySelector('.recover > .subtitle');
+    const globalDeathElem = document.querySelector('.death > .subtitle');
+
+    globalRecoverElem.textContent = data.globalData.TotalRecovered.toLocaleString('ru');
+    globalDeathElem.textContent = data.globalData.TotalDeaths.toLocaleString('ru');
   };
 
   window.addEventListener('resize', setHeight);
@@ -58,4 +65,5 @@ export default function showTable(data) {
   setHeight();
 
   updateTable(0);
+  setGlobal();
 }

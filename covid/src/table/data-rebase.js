@@ -14,6 +14,8 @@ export default function dataRebase(data) {
       todayCasesPer100k: +(((obj.casesPerOneMillion / 10) / obj.population) * 100000).toFixed(3),
       todayDeathsPer100k: +(((obj.deathsPerOneMillion / 10) / obj.population) * 100000).toFixed(3),
       todayRecoveredPer100k: +(((obj.recoveredPerOneMillion / 10) / obj.population) * 100000).toFixed(3),
+      flag: obj.countryInfo.flag,
+      iso3: obj.countryInfo.iso3,
     });
     return res;
   }, []);

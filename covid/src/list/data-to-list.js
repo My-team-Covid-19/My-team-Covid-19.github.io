@@ -10,9 +10,16 @@ export default function showList(rebased, data) {
     ['casesPer100k', 'deathsPer100k', 'recoveredPer100k'],
     ['todayCasesPer100k', 'todayDeathsPer100k', 'todayRecoveredPer100k'],
   ];
+  const updateGlobalCases = () => {
+    title.textContent = 'GlobalCases'.replace(/([A-Z])/g, ' $1').trim();
+    subtitle.textContent = data.globalData.TotalConfirmed.toLocaleString('ru');
+    controlTitle.textContent = currentSelector.replace(/([A-Z])/g, ' $1').trim();
+  };
+  // re
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
-      elem.querySelector('.count').textContent = elem.querySelector('.count').textContent.toLocaleString('ru');
+      const text = elem.querySelector('.count').textContent.toLocaleString('ru');
+      elem.querySelector('.count').insertAdjacentElement('afterbegin', text);
     });
   };
   const sortList = () => {
@@ -45,13 +52,10 @@ export default function showList(rebased, data) {
       list.append(li);
     });
 
-    title.textContent = 'GlobalCases'.replace(/([A-Z])/g, ' $1').trim();
-    subtitle.textContent = data.globalData.TotalConfirmed.toLocaleString('ru');
-    controlTitle.textContent = currentSelector.replace(/([A-Z])/g, ' $1').trim();
-
     sortList();
     digitSpread();
   };
+  updateGlobalCases();
   updateList(0);
 
   document.querySelector('.table2 > .control').addEventListener('click', (e) => {

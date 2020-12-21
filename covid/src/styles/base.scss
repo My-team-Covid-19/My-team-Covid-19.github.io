@@ -19,9 +19,28 @@ li {
 
 .extend {
     position: absolute;
-    z-index: 9999;
+    z-index: 5000;
     top: 0;
     left: calc(100% - 2rem);
+    width: 2rem;
+    height: 2rem;
+    background-color: $soft-white;
+    opacity: 0.3;
+    transition: all ease 250ms;
+    i {
+        font-size: 2rem;
+        color: $mid-black;
+    }
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+.search {
+    position: absolute;
+    z-index: 5000;
+    top: 0;
+    left: calc(100% - 4rem);
     width: 2rem;
     height: 2rem;
     background-color: $soft-white;
@@ -139,6 +158,31 @@ body {
     justify-content: center;
     align-items: center;
     height: 6rem;
+    .search-container {
+        position: absolute;
+        z-index: 5500;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6rem;
+        height: 6rem;
+        .search-button {
+            top: 1rem;
+            right: 1rem;
+            font-size: 4rem;
+            color: $soft-white;
+            transition: all ease 250ms;
+        }
+        &:hover {
+            cursor: pointer;
+            background-color: $light-grey;
+            .search-button {
+                color: $mid-black;
+            }
+        }
+    }
     .corona {
         margin: 0 0.5rem;
         font-size: 3rem;
@@ -149,7 +193,7 @@ body {
     }
     @media only screen and (max-width: 1023px) {
         position: fixed;
-        z-index: 90;
+        z-index: 5500;
         top: 0;
         width: 100%;
         min-width: 48rem;

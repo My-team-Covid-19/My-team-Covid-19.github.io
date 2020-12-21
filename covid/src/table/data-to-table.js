@@ -26,7 +26,7 @@ export default function showTable(rebased, data) {
       cellCountry.classList.add('name', 'td');
       [cellCases, cellDeaths, cellRecovered].forEach((elem, i) => {
         elem.classList.add('count', 'td');
-        elem.textContent = obj[`${dataSelector[selectorIndex][i]}`];
+        elem.insertAdjacentElement('afterbegin', obj[`${dataSelector[selectorIndex][i]}`]);
       });
 
       cellCountry.textContent = obj.country;
@@ -41,6 +41,9 @@ export default function showTable(rebased, data) {
     globalRecoverElem.textContent = data.globalData.TotalRecovered.toLocaleString('ru');
     globalDeathElem.textContent = data.globalData.TotalDeaths.toLocaleString('ru');
   };
+  setGlobal();
+  setHeight();
+  updateTable(0);
 
   window.addEventListener('resize', setHeight);
   populationBtn.addEventListener('click', () => {
@@ -61,9 +64,4 @@ export default function showTable(rebased, data) {
 
     updateTable(+dateBtn.getAttribute('mode') + +currentPopMode * 2);
   });
-
-  setHeight();
-
-  updateTable(0);
-  setGlobal();
 }

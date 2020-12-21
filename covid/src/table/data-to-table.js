@@ -26,7 +26,7 @@ export default function showTable(rebased, data) {
       cellCountry.classList.add('name', 'td');
       [cellCases, cellDeaths, cellRecovered].forEach((elem, i) => {
         elem.classList.add('count', 'td');
-        elem.insertAdjacentElement('afterbegin', obj[`${dataSelector[selectorIndex][i]}`]);
+        elem.textContent = obj[`${dataSelector[selectorIndex][i]}`];
       });
 
       cellCountry.textContent = obj.country;
@@ -38,8 +38,8 @@ export default function showTable(rebased, data) {
     const globalRecoverElem = document.querySelector('.recover > .subtitle');
     const globalDeathElem = document.querySelector('.death > .subtitle');
 
-    globalRecoverElem.textContent = data.globalData.TotalRecovered.toLocaleString('ru');
-    globalDeathElem.textContent = data.globalData.TotalDeaths.toLocaleString('ru');
+    globalRecoverElem.textContent = data.globalData.recovered.toLocaleString('ru');
+    globalDeathElem.textContent = data.globalData.deaths.toLocaleString('ru');
   };
   setGlobal();
   setHeight();

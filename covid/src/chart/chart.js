@@ -1,5 +1,7 @@
 import Chart from 'chart.js';
 
+let chart = '';
+
 class OneDay {
   constructor(date, value) {
     this.x = new Date(date);
@@ -7,10 +9,11 @@ class OneDay {
   }
 }
 
-function getConfirmed(obj) {
+export function getArrData(arr) {
   const result = [];
-  for (let i = 0; i < obj.length; i += 1) {
-    result.push(new OneDay(obj[i].date, obj[i].new_confirmed));
+
+  for (let i = 0; i < arr.length; i += 1) {
+    result.push(new OneDay(arr[i][0], +arr[i][1]));
   }
   return result;
 }
@@ -23,10 +26,11 @@ export default function getDefaultChart(data) {
       datasets: [{
         label: 'Total confirmed',
         backgroundColor: '#7d1111',
-        data: getConfirmed(data.globalOneDay),
+        data: getArrData(Object.entries(data.totalCases.cases)),
       }],
     },
     options: {
+      maintainAspectRatio: false,
       legend: {
         labels: {
           fontColor: 'rgba(255, 255, 255, 0.8)',
@@ -61,6 +65,10 @@ export default function getDefaultChart(data) {
     },
   };
 
-  const chart = new Chart(ctx, chartConfig);
+  chart = new Chart(ctx, chartConfig);
   chart.update();
+}
+
+export function getChart() {
+  return chart;
 }

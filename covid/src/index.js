@@ -6,3 +6,5 @@ import './page/set-findables';
 import './chart/chart';
 import './cases/cases';
 import './table/set-sortable';
+import './chart/update-chart';
+import './map/update-map';

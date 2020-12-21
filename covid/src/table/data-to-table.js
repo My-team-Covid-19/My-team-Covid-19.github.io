@@ -26,6 +26,7 @@ export default function showTable(rebased, data) {
       cellCountry.classList.add('name', 'td');
       [cellCases, cellDeaths, cellRecovered].forEach((elem, i) => {
         elem.classList.add('count', 'td');
+        // eslint-disable-next-line no-param-reassign
         elem.textContent = obj[`${dataSelector[selectorIndex][i]}`];
       });
 

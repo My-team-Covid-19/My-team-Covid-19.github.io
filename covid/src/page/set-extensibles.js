@@ -1,4 +1,5 @@
 import { getMap } from '../map/map';
+import { getChart } from '../chart/chart';
 
 const extensibleElems = document.querySelectorAll('[extensible]');
 const container = document.querySelector('.table1');
@@ -37,6 +38,7 @@ document.querySelector('body').addEventListener('click', (e) => {
       document.body.setAttribute('extended', `${currentEx.className}`);
     }
     (async () => getMap().invalidateSize())();
+    (async () => getChart().resize())();
     setHeight();
   }
 });

@@ -3,8 +3,9 @@ import data from '../countries.json';
 
 let activeLayer = '';
 let arrData = [];
-const markers = [];
 let iso3Country = 0;
+let currCircle = 0;
+let markers = [];
 const mapOptions = {
   center: [17.385044, 78.486671],
   zoom: 2,
@@ -50,11 +51,15 @@ legend.onAdd = () => {
 legend.addTo(map);
 
 function getTooltip(layer, propIso3) {
-  // markers.forEach((marker) => map.removeLayer(marker));
   if (arrData.propForCoords) {
     const element = arrData.propForCoords.find((el) => el.countryInfo.iso3 === propIso3);
     if (element) {
-      layer.bindTooltip(`${element.country}, confirmed: ${element.cases}`).openTooltip();
+      const latC = element.countryInfo.lat;
+      const longC = element.countryInfo.long;
+      const marker = markers.find((el) => (el.getLatLng().lat === latC)
+      && (el.getLatLng().lng === longC));
+      currCircle = marker;
+      marker.openTooltip();
       info.update(element);
     }
   }
@@ -98,6 +103,10 @@ function resetHighlight(e) {
   if (layer !== activeLayer) {
     geojson.resetStyle(e.target);
     layer.bringToBack();
+  }
+  if (currCircle) {
+    currCircle.closeTooltip();
+    currCircle = 0;
   }
   info.update();
 }
@@ -152,7 +161,7 @@ function findLayer(latLong) {
   return layers.find((el) => el.feature.properties.ISO_A3 === element.countryInfo.iso3);
 }
 
-function getHoverCountry(e) {
+export function getHoverCountry(e) {
   const latLong = e.target.getLatLng();
   const layer = findLayer(latLong);
   layer.setStyle(styleHover());
@@ -162,7 +171,7 @@ function getHoverCountry(e) {
   markers.forEach((marker) => marker.bringToFront());
 }
 
-function resetHoverCountry(e) {
+export function resetHoverCountry(e) {
   const latLong = e.target.getLatLng();
   const layer = findLayer(latLong);
   geojson.resetStyle(layer);
@@ -170,13 +179,56 @@ function resetHoverCountry(e) {
   info.update();
 }
 
-function clickCircle(e) {
+export function clickCircle(e) {
   const latLong = e.target.getLatLng();
   const layer = findLayer(latLong);
   changeMap(layer);
 }
 
-function getCircleCases(obj) {
+function statusCircle(obj, circle, status, i) {
+  let key = status;
+  let name = status;
+  circle.on({
+    mouseover: getHoverCountry,
+    mouseout: resetHoverCountry,
+    click: clickCircle,
+  });
+  if (status === 'confirmed') {
+    key = 'cases';
+    name = 'confirmed';
+  }
+
+  circle.addTo(map)
+    .bindTooltip(`${obj.propForCoords[i].country}, ${name}: ${obj.propForCoords[i][key]}`);
+}
+
+function getRadius(obj, i, coefficient, status) {
+  let key = status;
+  if (status === 'confirmed') {
+    key = 'cases';
+  }
+  if (status === 'deaths') {
+    return obj.propForCoords[i][key] * 2;
+  }
+
+  return Math.sqrt(obj.propForCoords[i][key]) * coefficient;
+}
+
+export function getCircleCases(obj, circleOptions, status) {
+  for (let i = 0; i < obj.propForCoords.length; i += 1) {
+    const circleCenter = [
+      obj.propForCoords[i].countryInfo.lat,
+      obj.propForCoords[i].countryInfo.long,
+    ];
+    const jusCoefficient = 200;
+    const radius = getRadius(obj, i, jusCoefficient, status);
+    const circle = L.circle(circleCenter, radius, circleOptions);
+    markers.push(circle);
+    statusCircle(obj, circle, status, i);
+  }
+}
+
+export default function getDefaultMap(obj) {
   const circleOptions = {
     color: 'red',
     fillColor: 'red',
@@ -184,27 +236,8 @@ function getCircleCases(obj) {
     sticky: true,
     fillOpacity: 0.8,
   };
-  for (let i = 0; i < obj.propForCoords.length; i += 1) {
-    const circleCenter = [
-      obj.propForCoords[i].countryInfo.lat,
-      obj.propForCoords[i].countryInfo.long,
-    ];
-    const jusCoefficient = 200;
-    const radius = Math.sqrt(obj.propForCoords[i].cases) * jusCoefficient;
-    const circle = L.circle(circleCenter, radius, circleOptions);
-    markers.push(circle);
-    circle.on({
-      mouseover: getHoverCountry,
-      mouseout: resetHoverCountry,
-      click: clickCircle,
-    });
-    circle.addTo(map)
-      .bindTooltip(`${obj.propForCoords[i].country}, confirmed: ${obj.propForCoords[i].cases}`);
-  }
-}
 
-export default function getDefaultMap(obj) {
-  getCircleCases(obj);
+  getCircleCases(obj, circleOptions, 'confirmed');
   arrData = obj;
 }
 
@@ -214,4 +247,9 @@ export function getMap() {
 
 export function getIso3Country() {
   return iso3Country;
+}
+
+export function removeMarkers() {
+  markers.forEach((marker) => marker.remove());
+  markers = [];
 }

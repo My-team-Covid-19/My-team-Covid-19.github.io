@@ -13,6 +13,7 @@ export default function showList(rebased, data) {
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
       const text = elem.querySelector('.count').textContent.toLocaleString('ru');
+      // eslint-disable-next-line no-param-reassign
       elem.querySelector('.count').textContent = text;
     });
   };

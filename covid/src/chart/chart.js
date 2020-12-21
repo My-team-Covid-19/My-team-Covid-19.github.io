@@ -1,5 +1,7 @@
 import Chart from 'chart.js';
 
+let chart = '';
+
 class OneDay {
   constructor(date, value) {
     this.x = new Date(date);
@@ -27,6 +29,7 @@ export default function getDefaultChart(data) {
       }],
     },
     options: {
+      maintainAspectRatio: false,
       legend: {
         labels: {
           fontColor: 'rgba(255, 255, 255, 0.8)',
@@ -61,6 +64,10 @@ export default function getDefaultChart(data) {
     },
   };
 
-  const chart = new Chart(ctx, chartConfig);
+  chart = new Chart(ctx, chartConfig);
   chart.update();
+}
+
+export function getChart() {
+  return chart;
 }

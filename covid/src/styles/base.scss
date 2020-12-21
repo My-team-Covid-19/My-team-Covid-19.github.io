@@ -410,6 +410,8 @@ body {
             display: flex;
             justify-content: space-between;
             padding: 0 0.6rem;
+            border-bottom: 0.1rem solid $mid-grey;
+            background-color: $mid-black;
             .country {
                 display: flex;
                 flex-direction: row;
@@ -427,8 +429,8 @@ body {
             .count {
                 font-size: 1.4rem;
             }
-            &:nth-child(2n+1) {
-                background-color: $mid-black;
+            &.hidden {
+                display: none;
             }
         }
     }

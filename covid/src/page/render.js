@@ -5,8 +5,9 @@ import getDefaultMap from '../map/map';
 import getDefaultChart from '../chart/chart';
 
 export default function getPage(data) {
+  const rebased = dataRebase(data);
   getDefaultMap(data);
   getDefaultChart(data);
-  showList(data);
-  showTable(dataRebase(data));
+  showList(rebased, data);
+  showTable(rebased, data);
 }

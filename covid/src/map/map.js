@@ -207,6 +207,9 @@ function getRadius(obj, i, coefficient, status) {
   if (status === 'confirmed') {
     key = 'cases';
   }
+  if (status === 'deaths') {
+    return obj.propForCoords[i][key] * 2;
+  }
 
   return Math.sqrt(obj.propForCoords[i][key]) * coefficient;
 }

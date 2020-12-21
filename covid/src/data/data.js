@@ -5,6 +5,7 @@ const urls = [
   'https://restcountries.eu/rest/v2/all?fields=name;population;flag',
   'https://corona.lmao.ninja/v2/countries',
   'https://corona-api.com/timeline',
+  'https://disease.sh/v3/covid-19/historical/all?lastdays=all',
 ];
 
 const requests = urls.map((url) => fetch(url));
@@ -15,6 +16,7 @@ const data = {
   flagsAndPopulations: '',
   propForCoords: '',
   globalOneDay: '',
+  totalCases: '',
 };
 
 Promise.all(requests)
@@ -26,9 +28,12 @@ Promise.all(requests)
       [data.flagsAndPopulations] = [values[1]];
       [data.propForCoords] = [values[2]];
       data.globalOneDay = [values[3]][0].data;
+      [data.totalCases] = [values[4]];
       return data;
     });
-  }).then((obj) => getPage(obj));
+  })
+  .catch(() => alert('Failed to load resource, please try again later'))
+  .then((obj) => getPage(obj));
 
 export default function getDataObject() {
   return data;

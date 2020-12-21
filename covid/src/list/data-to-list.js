@@ -1,5 +1,4 @@
 export default function showList(rebased, data) {
-  console.log(rebased, data);
   const list = document.querySelector('.table2 > ul');
   const title = document.querySelector('.cases.container > .title');
   const controlTitle = document.querySelector('.control-title');
@@ -26,7 +25,7 @@ export default function showList(rebased, data) {
     const i = Math.floor(num / 3);
     const j = num % 3;
     const currentSelector = rebasedSelector[i][j];
-    console.log(i, j);
+
     list.innerHTML = '';
     rebased.forEach((obj) => {
       const li = document.createElement('li');
@@ -50,7 +49,6 @@ export default function showList(rebased, data) {
       subtitle.textContent = data.globalData.cases.toLocaleString('ru');
       controlTitle.textContent = currentSelector.replace(/([A-Z])/g, ' $1').trim();
     });
-
     sortList();
     digitSpread();
   };

@@ -1,4 +1,4 @@
-export default function showTable(data) {
+export default function showTable(rebased, data) {
   const container = document.querySelector('.table1');
   const tableBody = document.querySelector('.table > .body');
   const populationBtn = document.querySelector('.population.button');
@@ -9,9 +9,9 @@ export default function showTable(data) {
     ['casesPer100k', 'deathsPer100k', 'recoveredPer100k'],
     ['todayCasesPer100k', 'todayDeathsPer100k', 'todayRecoveredPer100k'],
   ];
-  const rebasedData = data.slice();
+  const rebasedData = rebased.slice();
   const setHeight = () => {
-    tableBody.style = `height: ${container.offsetHeight - 83}px`;
+    tableBody.style = `height: ${container.offsetHeight - 153}px`;
   };
   const updateTable = (selectorIndex) => {
     tableBody.innerHTML = '';
@@ -26,6 +26,7 @@ export default function showTable(data) {
       cellCountry.classList.add('name', 'td');
       [cellCases, cellDeaths, cellRecovered].forEach((elem, i) => {
         elem.classList.add('count', 'td');
+        // eslint-disable-next-line no-param-reassign
         elem.textContent = obj[`${dataSelector[selectorIndex][i]}`];
       });
 
@@ -34,6 +35,16 @@ export default function showTable(data) {
       tableBody.append(row);
     });
   };
+  const setGlobal = () => {
+    const globalRecoverElem = document.querySelector('.recover > .subtitle');
+    const globalDeathElem = document.querySelector('.death > .subtitle');
+
+    globalRecoverElem.textContent = data.globalData.recovered.toLocaleString('ru');
+    globalDeathElem.textContent = data.globalData.deaths.toLocaleString('ru');
+  };
+  setGlobal();
+  setHeight();
+  updateTable(0);
 
   window.addEventListener('resize', setHeight);
   populationBtn.addEventListener('click', () => {
@@ -54,8 +65,4 @@ export default function showTable(data) {
 
     updateTable(+dateBtn.getAttribute('mode') + +currentPopMode * 2);
   });
-
-  setHeight();
-
-  updateTable(0);
 }

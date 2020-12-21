@@ -5,7 +5,7 @@ const extensibleElems = document.querySelectorAll('[extensible]');
 const container = document.querySelector('.table1');
 const tableBody = document.querySelector('.table > .body');
 const setHeight = () => {
-  tableBody.style = `height: ${container.offsetHeight - 83}px`;
+  tableBody.style = `height: ${container.offsetHeight - 153}px`;
 };
 
 extensibleElems.forEach((elem) => {

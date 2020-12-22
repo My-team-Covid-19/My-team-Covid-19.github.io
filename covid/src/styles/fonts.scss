@@ -73,3 +73,10 @@
     font-weight: 400;
     color: $color;
 }
+@mixin date-info-text($color) {
+    font-family: Roboto;
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 6%;
+    color: $color;
+}

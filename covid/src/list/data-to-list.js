@@ -11,9 +11,9 @@ export default function showList(rebased, data) {
   ];
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
-      const text = elem.querySelector('.count').textContent.toLocaleString('ru');
-      // eslint-disable-next-line no-param-reassign
-      elem.querySelector('.count').textContent = text;
+      const text = elem.querySelector('.count').textContent;
+      console.log(text);
+      elem.querySelector('.count').replaceWith(text);
     });
   };
   const sortList = () => {
@@ -22,7 +22,6 @@ export default function showList(rebased, data) {
     list.append(...elems.sort((a, b) => select(b) - select(a)));
   };
   const updateList = (num) => {
-    // selector calc
     const i = Math.floor(num / 3);
     const j = num % 3;
     const currentSelector = rebasedSelector[i][j];
@@ -56,24 +55,21 @@ export default function showList(rebased, data) {
   };
   updateList(0);
 
-  // left\right arrows lesteners
   document.querySelector('.table2 > .control').addEventListener('click', (e) => {
     if (e.target.classList.contains('material-icons')) {
-      const val = e.target.classList.contains('left') ? -1 : 1; // calc direction
-      const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12; // predicate calc
+      const val = e.target.classList.contains('left') ? -1 : 1;
+      const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
       controlTitle.setAttribute('predicate', predicate);
       updateList(predicate);
     }
   });
 
-  // select
   list.addEventListener('click', (e) => {
     const itemTarget = e.target.closest('li');
     const name = itemTarget.querySelector('.name').textContent;
     const countryStat = rebased.find((obj) => obj.country === name);
     const tableListitems = document.querySelectorAll('.body > .item');
 
-    // visual selection in table
     list.querySelectorAll('li').forEach((elem) => {
       if (elem === itemTarget) {
         elem.classList.add('active');
@@ -81,7 +77,7 @@ export default function showList(rebased, data) {
         elem.classList.remove('active');
       }
     });
-    // visual selection in list
+
     const listTarget = [...tableListitems]
       .find((elem) => elem.querySelector('.name').textContent === name);
     tableListitems.forEach((elem) => elem.classList.remove('active'));

@@ -1,18 +1,23 @@
 import * as L from 'leaflet';
 import data from '../countries.json';
+import findFromMap from '../list/listFromIso3';
+import changeCharFromMap from '../chart/update-chart';
 
-let activeLayer = '';
-let arrData = [];
-// let iso3Country = 0;
-let currCircle = 0;
-let markers = [];
+const list = document.querySelector('.table2 > ul');
+const tableBody = document.querySelector('.table > .body');
+const cancel = document.querySelector('.cancel');
+const defCenter = [17.385044, 78.486671];
 const mapOptions = {
-  center: [17.385044, 78.486671],
+  center: defCenter,
   zoom: 2,
   minZoom: 2,
   maxBounds: ([[-90, -180], [90, 180]]),
   maxBoundsViscosity: 1,
 };
+let activeLayer = 0;
+let arrData = [];
+let currCircle = 0;
+let markers = [];
 
 const map = new L.Map('map', mapOptions);
 const layerMain = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -112,11 +117,13 @@ function resetHighlight(e) {
 }
 
 function changeStyles(layer) {
-  if (activeLayer) {
-    activeLayer.setStyle(style());
+  if (layer) {
+    if (activeLayer) {
+      activeLayer.setStyle(style());
+    }
+    activeLayer = layer;
+    layer.setStyle(styleHover());
   }
-  activeLayer = layer;
-  layer.setStyle(styleHover());
 }
 
 function changeCenterMap(propIso3) {
@@ -130,14 +137,18 @@ function changeCenterMap(propIso3) {
 
 function changeMap(layer) {
   const propIso3 = layer.feature.properties.ISO_A3;
+  const element = arrData.propForCoords.find((obj) => obj.countryInfo.iso3 === propIso3);
+  changeCharFromMap(element.population, propIso3);
   changeCenterMap(propIso3);
   changeStyles(layer);
-  // iso3Country = propIso3;
+  findFromMap(propIso3);
 }
 
 function getCountryFromMap(e) {
   const layer = e.target;
-  changeMap(layer);
+  if (layer) {
+    changeMap(layer);
+  }
 }
 
 function onEachFeature(feature, layer) {
@@ -182,7 +193,9 @@ export function resetHoverCountry(e) {
 export function clickCircle(e) {
   const latLong = e.target.getLatLng();
   const layer = findLayer(latLong);
-  changeMap(layer);
+  if (layer) {
+    changeMap(layer);
+  }
 }
 
 function statusCircle(obj, circle, status, i) {
@@ -245,11 +258,40 @@ export function getMap() {
   return map;
 }
 
-// export function getIso3Country() {
-//   return iso3Country;
-// }
-
 export function removeMarkers() {
   markers.forEach((marker) => marker.remove());
   markers = [];
 }
+
+function selectCountry(codeCountry) {
+  const layers = geojson.getLayers();
+  const layer = layers.find((el) => el.feature.properties.ISO_A3 === codeCountry);
+  if (layer) {
+    changeMap(layer);
+  }
+}
+
+function getCodeCountry(itemTarget, tableTarget) {
+  if (itemTarget) {
+    return itemTarget.getAttribute('iso3');
+  }
+  return tableTarget.getAttribute('iso3');
+}
+
+function selectCountryMap(e) {
+  const itemTarget = e.target.closest('li');
+  const tableTarget = e.target.closest('.item');
+  selectCountry(getCodeCountry(itemTarget, tableTarget));
+}
+
+function resetSelectCountry() {
+  if (activeLayer) {
+    activeLayer.setStyle(style());
+  }
+  map.setView(defCenter);
+  activeLayer = 0;
+}
+
+list.addEventListener('click', selectCountryMap);
+tableBody.addEventListener('click', selectCountryMap);
+cancel.addEventListener('click', resetSelectCountry);

@@ -24,10 +24,7 @@ export function getDailyDataAbs(arr) {
 
   for (let i = 0; i < arr.length; i += 1) {
     if (buff) {
-      const dif = +arr[i][1] - buff;
-      if (dif >= 0) {
-        result.push(new OneDay(arr[i][0], dif));
-      }
+      result.push(new OneDay(arr[i][0], Math.abs(+arr[i][1] - buff)));
     } else {
       result.push(new OneDay(arr[i][0], +arr[i][1]));
     }
@@ -36,8 +33,7 @@ export function getDailyDataAbs(arr) {
   return result;
 }
 
-export function getDataPer100k(arr, type = 'cumulative') {
-  const globalPopulation = 7594000000;
+export function getDataPer100k(arr, population, type = 'cumulative') {
   let arrData = 0;
   if (type === 'cumulative') {
     arrData = getArrData(arr);
@@ -46,7 +42,7 @@ export function getDataPer100k(arr, type = 'cumulative') {
   }
   return arrData.map((obj) => ({
     x: obj.x,
-    y: ((obj.y / globalPopulation) * 100000).toFixed(3),
+    y: ((obj.y / population) * 100000).toFixed(3),
   }));
 }
 

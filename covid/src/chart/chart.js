@@ -18,13 +18,45 @@ export function getArrData(arr) {
   return result;
 }
 
+export function getDailyDataAbs(arr) {
+  const result = [];
+  let buff = 0;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (buff) {
+      const dif = +arr[i][1] - buff;
+      if (dif >= 0) {
+        result.push(new OneDay(arr[i][0], dif));
+      }
+    } else {
+      result.push(new OneDay(arr[i][0], +arr[i][1]));
+    }
+    buff = +arr[i][1];
+  }
+  return result;
+}
+
+export function getDataPer100k(arr, type = 'cumulative') {
+  const globalPopulation = 7594000000;
+  let arrData = 0;
+  if (type === 'cumulative') {
+    arrData = getArrData(arr);
+  } else {
+    arrData = getDailyDataAbs(arr);
+  }
+  return arrData.map((obj) => ({
+    x: obj.x,
+    y: ((obj.y / globalPopulation) * 100000).toFixed(3),
+  }));
+}
+
 export default function getDefaultChart(data) {
   const ctx = document.getElementById('chart').getContext('2d');
   const chartConfig = {
     type: 'bar',
     data: {
       datasets: [{
-        label: 'Total confirmed',
+        label: 'cases',
         backgroundColor: '#7d1111',
         data: getArrData(Object.entries(data.totalCases.cases)),
       }],

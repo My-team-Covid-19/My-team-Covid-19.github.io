@@ -3,7 +3,7 @@ import data from '../countries.json';
 
 let activeLayer = '';
 let arrData = [];
-let iso3Country = 0;
+// let iso3Country = 0;
 let currCircle = 0;
 let markers = [];
 const mapOptions = {
@@ -132,7 +132,7 @@ function changeMap(layer) {
   const propIso3 = layer.feature.properties.ISO_A3;
   changeCenterMap(propIso3);
   changeStyles(layer);
-  iso3Country = propIso3;
+  // iso3Country = propIso3;
 }
 
 function getCountryFromMap(e) {
@@ -245,9 +245,9 @@ export function getMap() {
   return map;
 }
 
-export function getIso3Country() {
-  return iso3Country;
-}
+// export function getIso3Country() {
+//   return iso3Country;
+// }
 
 export function removeMarkers() {
   markers.forEach((marker) => marker.remove());

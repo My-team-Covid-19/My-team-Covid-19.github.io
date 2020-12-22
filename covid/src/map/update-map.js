@@ -45,4 +45,4 @@ function changeMap() {
   getCircleCases(obj, circleOptions, status);
 }
 
-btn.addEventListener('click', changeMap);
+// btn.addEventListener('click', changeMap);

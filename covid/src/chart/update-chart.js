@@ -6,7 +6,7 @@ import getDataObject from '../data/data';
 const controlTitle = document.querySelector('.graph > .control > .control-title');
 const buttons = ['cumulative', 'daily', 'cumulative per100k', 'daily per100k'];
 const globalDataCases = ['cases', 'deaths', 'recovered'];
-const colors = ['red', 'blue', 'green'];
+const colors = ['rgb(255, 45, 45)', 'rgb(70, 70, 194)', 'rgb(85, 147, 85)'];
 const isGlobal = true;
 
 (function initTitle() {

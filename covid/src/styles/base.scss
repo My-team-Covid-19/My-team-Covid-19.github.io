@@ -187,6 +187,31 @@ body {
     position: relative;
     background: $soft-grey;
     border: 0.1rem solid $mid-grey;
+    .space {
+        width: 100%;
+        min-height: 1rem;
+        max-height: 1rem;
+        background-color: $mid-black;
+    }
+    .date-info {
+        position: absolute;
+        top: 0;
+        left: calc(100% - 36rem);
+        z-index: 500;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 34rem;
+        min-height: 2rem;
+        max-height: 2rem;
+        border-bottom: 0.1rem solid $mid-grey;
+        border-left: 0.1rem solid $mid-grey;
+        .date,
+        .title {
+            @include date-info-text($soft-white);
+        }
+    }
     .common-info {
         display: flex;
         flex-direction: row;
@@ -202,6 +227,7 @@ body {
             align-items: center;
             height: 6rem;
             .title {
+                margin-top: 0.6rem;
                 @include table-title($soft-white);
             }
             .subtitle {
@@ -210,12 +236,12 @@ body {
             }
             &.recover {
                 & > p {
-                    color: #6f896f;
+                    color: $light-green
                 }
             }
             &.death {
                 & > p {
-                    color: #4b4b80;
+                    color: $light-blue
                 }
             }
         }
@@ -466,7 +492,7 @@ body {
 }
 
 .map-wrapper {
-    filter: grayscale(70%);
+    filter: grayscale(30%);
     grid-area: map-wrapper;
     position: relative;
     background: $soft-grey;

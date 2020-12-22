@@ -243,8 +243,8 @@ export function getCircleCases(obj, circleOptions, status) {
 
 export default function getDefaultMap(obj) {
   const circleOptions = {
-    color: 'red',
-    fillColor: 'red',
+    color: 'rgb(255, 45, 45)',
+    fillColor: 'rgb(255, 45, 45)',
     clickable: true,
     sticky: true,
     fillOpacity: 0.8,

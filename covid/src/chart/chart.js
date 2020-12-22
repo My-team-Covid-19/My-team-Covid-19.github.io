@@ -53,7 +53,7 @@ export default function getDefaultChart(data) {
     data: {
       datasets: [{
         label: 'cases',
-        backgroundColor: '#7d1111',
+        backgroundColor: 'rgb(255, 45, 45)',
         data: getArrData(Object.entries(data.totalCases.cases)),
       }],
     },

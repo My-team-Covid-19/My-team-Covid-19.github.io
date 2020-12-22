@@ -277,10 +277,6 @@ body {
                     text-align: end;
                     padding-right: 1.6rem;
                 }
-                &:hover{
-                    cursor: pointer;
-                    background-color: rgba($mid-grey, 0.3);
-                }
             }
         }
         .body {
@@ -288,17 +284,25 @@ body {
             grid-template-rows: repeat(auto-fill, 2rem);
             overflow-y: auto;
             .item {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                transition: all ease 200ms;
                 &:nth-child(2n+1) {
                     background-color: $mid-black;
                 }
-                display: grid;
-                grid-template-columns: 2fr 1fr 1fr 1fr;
                 .td {
                     text-align: start;
                     @include table-td-text($soft-white);
                     &.count {
                         text-align: end;
                     }
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: $mid-grey;
+                }
+                &.active {
+                    background-color: $dark-green !important;
                 }
             }
         }
@@ -335,7 +339,6 @@ body {
             height: 100%;
             size: 14rem;
             border: none;
-            border-right: 0.1rem solid $mid-grey;
             border-bottom: 0.1rem solid $mid-grey;
             border-left: 0.1rem solid $mid-grey;
             background-color: $mid-black;
@@ -343,9 +346,16 @@ body {
             font-size: 1.6rem;
             color: $soft-white;
         }
-        .search,
+        .search {
+            font-size: 2rem;
+            width: 2rem;
+            height: 2rem;
+            border-right: 0.1rem solid $mid-grey;
+            border-bottom: 0.1rem solid $mid-grey;
+            color: $mid-grey;
+        }
         .cancel {
-            font-size: 1.8rem;
+            font-size: 2rem;
             width: 2rem;
             height: 2rem;
             background-color: $soft-white;
@@ -357,6 +367,7 @@ body {
                 opacity: 1;
             }
         }
+        
     }
     .control {
         display: flex;
@@ -412,6 +423,7 @@ body {
             padding: 0 0.6rem;
             border-bottom: 0.1rem solid $mid-grey;
             background-color: $mid-black;
+            transition: all ease 150ms;
             .country {
                 display: flex;
                 flex-direction: row;
@@ -431,6 +443,13 @@ body {
             }
             &.hidden {
                 display: none;
+            }
+            &.active {
+                background-color: $dark-green !important;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: $mid-grey;
             }
         }
     }

@@ -104,7 +104,7 @@ export default function showTable(rebased, data) {
     const currentDateMode = parseFloat(dateBtn.getAttribute('mode'));
     const currentPopMode = parseFloat(populationBtn.getAttribute('mode'));
 
-    dateBtn.setAttribute('mode', (currentDateMode ? 0 : 1)); // mode toggler
+    dateBtn.setAttribute('mode', (currentDateMode ? 0 : 1));
     dateBtn.querySelector('span').textContent = currentDateMode ? 'All Time' : 'Last Day';
 
     updateTable(+dateBtn.getAttribute('mode') + +currentPopMode * 2);

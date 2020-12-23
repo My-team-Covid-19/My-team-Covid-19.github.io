@@ -12,7 +12,6 @@ export default function showList(rebased, data) {
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
       const text = elem.querySelector('.count').textContent;
-      console.log(text);
       elem.querySelector('.count').replaceWith(text);
     });
   };
@@ -60,6 +59,7 @@ export default function showList(rebased, data) {
       const val = e.target.classList.contains('left') ? -1 : 1;
       const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
       controlTitle.setAttribute('predicate', predicate);
+
       updateList(predicate);
     }
   });

@@ -7,3 +7,4 @@ import './cases/cases';
 import './chart/update-chart';
 import './map/update-map';
 import './list/search';
+import './list/keyboard';

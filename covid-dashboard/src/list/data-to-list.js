@@ -60,6 +60,7 @@ export default function showList(rebased, data) {
       const val = e.target.classList.contains('left') ? -1 : 1;
       const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
       controlTitle.setAttribute('predicate', predicate);
+
       updateList(predicate);
     }
   });

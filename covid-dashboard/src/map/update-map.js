@@ -3,6 +3,9 @@ import { getCircleCases, removeMarkers } from './map';
 
 const controlTitle = document.querySelector('.map-wrapper > .controls > .control .control-title');
 const control = document.querySelector('.map-wrapper > .controls > .control');
+const icon = document.querySelector('.map-wrapper > .controls > .control > .material-icons');
+const populationBtn = document.querySelector('.population.button');
+const dateBtn = document.querySelector('.date.button');
 const btn = [
   ['total cases', 'total deaths', 'total recovered'],
   ['today cases', 'today deaths', 'today recovered'],
@@ -64,3 +67,29 @@ function changeMap(e) {
 }
 
 control.addEventListener('click', changeMap);
+document.querySelector('.table2 > .control').addEventListener('click', changeMap);
+document.querySelector('.graph > .control').addEventListener('click', changeMap);
+// populationBtn.addEventListener('click', () => {
+//   const currentDateMode = parseFloat(dateBtn.getAttribute('mode'));
+//   const currentPopMode = parseFloat(populationBtn.getAttribute('mode'));
+
+//   populationBtn.setAttribute('mode', (currentPopMode ? 0 : 1));
+//   populationBtn.querySelector('span').textContent = currentPopMode ? 'All Cases' : 'per 100k';
+//   const val = icon.classList.contains('left') ? -1 : 1;
+//   const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
+//   controlTitle.setAttribute('predicate', predicate);
+
+//   updateMap((+populationBtn.getAttribute('mode') * 2 + +currentDateMode) * 3);
+// });
+// dateBtn.addEventListener('click', () => {
+//   const currentDateMode = parseFloat(dateBtn.getAttribute('mode'));
+//   const currentPopMode = parseFloat(populationBtn.getAttribute('mode'));
+
+//   dateBtn.setAttribute('mode', (currentDateMode ? 0 : 1));
+//   dateBtn.querySelector('span').textContent = currentDateMode ? 'All Time' : 'Last Day';
+//   const val = icon.classList.contains('left') ? -1 : 1;
+//   const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
+//   controlTitle.setAttribute('predicate', predicate);
+
+//   updateMap((+currentPopMode.getAttribute('mode') * 2 + +currentPopMode) * 3);
+// });

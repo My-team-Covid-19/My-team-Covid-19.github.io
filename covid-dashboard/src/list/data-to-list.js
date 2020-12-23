@@ -54,14 +54,19 @@ export default function showList(rebased, data) {
   };
   updateList(0);
 
-  document.querySelector('.table2 > .control').addEventListener('click', (e) => {
+  function changeList(e) {
     if (e.target.classList.contains('material-icons')) {
       const val = e.target.classList.contains('left') ? -1 : 1;
       const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
       controlTitle.setAttribute('predicate', predicate);
       updateList(predicate);
     }
-  });
+  }
+
+  document.querySelector('.table2 > .control').addEventListener('click', changeList);
+  document.querySelector('.graph > .control').addEventListener('click', changeList);
+  document.querySelector('.map-wrapper > .controls > .control')
+    .addEventListener('click', changeList);
 
   list.addEventListener('click', (e) => {
     const itemTarget = e.target.closest('li');

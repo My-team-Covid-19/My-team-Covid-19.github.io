@@ -130,6 +130,9 @@ function resetChartCountry() {
 }
 
 document.querySelector('.graph > .control').addEventListener('click', changeChart);
+document.querySelector('.table2 > .control').addEventListener('click', changeChart);
+document.querySelector('.map-wrapper > .controls > .control')
+  .addEventListener('click', changeChart);
 list.addEventListener('click', getChartCountry);
 tableBody.addEventListener('click', getChartCountry);
 cancel.addEventListener('click', resetChartCountry);

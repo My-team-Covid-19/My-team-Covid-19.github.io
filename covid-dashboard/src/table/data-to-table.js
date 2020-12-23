@@ -97,7 +97,7 @@ export default function showTable(rebased, data) {
     populationBtn.querySelector('span').textContent = currentPopMode ? 'All Cases' : 'per 100k';
 
     updateTable(+currentDateMode + +populationBtn.getAttribute('mode') * 2);
-    updateList(+populationBtn.getAttribute('mode') * 2 + +currentDateMode);
+    // updateList(+populationBtn.getAttribute('mode') * 2 + +currentDateMode);
   });
 
   dateBtn.addEventListener('click', () => {
@@ -108,7 +108,7 @@ export default function showTable(rebased, data) {
     dateBtn.querySelector('span').textContent = currentDateMode ? 'All Time' : 'Last Day';
 
     updateTable(+dateBtn.getAttribute('mode') + +currentPopMode * 2);
-    updateList(+currentPopMode * 2 + +dateBtn.getAttribute('mode'));
+    // updateList(+currentPopMode * 2 + +dateBtn.getAttribute('mode'));
   });
 
   tableBody.addEventListener('click', (e) => {

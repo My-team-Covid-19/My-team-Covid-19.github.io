@@ -1,0 +1,9 @@
+import './styles/index.scss';
+import './data/data';
+import './map/map';
+import './page/set-extensibles';
+import './chart/chart';
+import './cases/cases';
+import './chart/update-chart';
+import './map/update-map';
+import './list/search';

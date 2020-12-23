@@ -67,7 +67,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/assets'),
+          from: path.resolve(__dirname, 'src/sounds'),
           to: path.resolve(__dirname, 'dist/audio'),
         },
       ],

@@ -4,7 +4,7 @@ const list = document.querySelector('ul');
 const table = document.querySelector('.table > .body');
 const check = (items) => {
   items.forEach((elem) => {
-    const country = elem.querySelector('.name').textContent;
+    const country = elem.querySelector('.name').textContent.toLowerCase();;
     if (!country.includes(input.value)) {
       elem.classList.add('hidden');
     } else {

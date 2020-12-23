@@ -12,7 +12,6 @@ export default function showList(rebased, data) {
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
       const text = elem.querySelector('.count').textContent;
-      console.log(text);
       elem.querySelector('.count').replaceWith(text);
     });
   };

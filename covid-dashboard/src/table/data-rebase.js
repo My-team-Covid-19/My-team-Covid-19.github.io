@@ -16,6 +16,8 @@ export default function dataRebase(data) {
       todayRecoveredPer100k: +((obj.todayRecovered / obj.population) * 100000).toFixed(3),
       flag: obj.countryInfo.flag,
       iso3: obj.countryInfo.iso3,
+      lat: obj.countryInfo.lat,
+      long: obj.countryInfo.long,
     });
     return res;
   }, []);

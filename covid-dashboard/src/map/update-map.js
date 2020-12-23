@@ -1,48 +1,66 @@
 import getDataObject from '../data/data';
 import { getCircleCases, removeMarkers } from './map';
 
-let count = 0;
+const controlTitle = document.querySelector('.map-wrapper > .controls > .control .control-title');
+const control = document.querySelector('.map-wrapper > .controls > .control');
+const btn = [
+  ['total cases', 'total deaths', 'total recovered'],
+  ['today cases', 'today deaths', 'today recovered'],
+  ['cases per100k', 'deaths per100k', 'recovered per100k'],
+  ['today cases per100k', 'today deaths per100k', 'today recovered per100k'],
+];
+const selector = [
+  ['cases', 'deaths', 'recovered'],
+  ['todayCases', 'todayDeaths', 'todayRecovered'],
+  ['casesPerOneMillion', 'deathsPerOneMillion', 'recoveredPerOneMillion'],
+  ['todayCases', 'todayDeaths', 'todayRecovered'],
+];
 
-const btn = document.querySelector('.test-btn');
-const circleOptionsConfirmed = {
-  color: 'red',
-  fillColor: 'red',
-  clickable: true,
-  sticky: true,
-  fillOpacity: 0.8,
-};
-const circleOptionsRecovered = {
-  color: 'green',
-  fillColor: 'green',
-  clickable: true,
-  sticky: true,
-  fillOpacity: 0.8,
-};
-const circleOptionsDeaths = {
-  color: 'blue',
-  fillColor: 'blue',
-  clickable: true,
-  sticky: true,
-  fillOpacity: 0.8,
-};
+const optionsMap = [
+  {
+    color: 'rgb(255, 45, 45)',
+    fillColor: 'rgb(255, 45, 45)',
+    clickable: true,
+    sticky: true,
+    fillOpacity: 0.8,
+  },
+  {
+    color: 'rgb(70, 70, 194)',
+    fillColor: 'rgb(70, 70, 194)',
+    clickable: true,
+    sticky: true,
+    fillOpacity: 0.8,
+  },
+  {
+    color: 'rgb(85, 147, 85)',
+    fillColor: 'rgb(85, 147, 85)',
+    clickable: true,
+    sticky: true,
+    fillOpacity: 0.8,
+  },
+];
 
-function changeMap() {
+function updateMap(predicate) {
+  const i = predicate % 3;
+  const j = Math.floor(predicate / 3);
   removeMarkers();
-  count += 1;
-  let circleOptions = circleOptionsConfirmed;
-  let status = 'confirmed';
-
-  if (count === 1) {
-    circleOptions = circleOptionsRecovered;
-    status = 'recovered';
-  } else if (count === 2) {
-    circleOptions = circleOptionsDeaths;
-    status = 'deaths';
-  }
-
-  const obj = getDataObject();
-
-  getCircleCases(obj, circleOptions, status);
+  getCircleCases(getDataObject(), optionsMap[i], selector[j][i], predicate);
 }
 
-// btn.addEventListener('click', changeMap);
+(function initControlTitle() {
+  [controlTitle.textContent] = [btn[0][0]];
+}());
+
+function changeMap(e) {
+  if (e.target.classList.contains('material-icons')) {
+    const val = e.target.classList.contains('left') ? -1 : 1;
+    const predicate = (+controlTitle.getAttribute('predicate') + val + 12) % 12;
+    controlTitle.setAttribute('predicate', predicate);
+    const i = Math.floor(predicate / 3);
+    const j = predicate % 3;
+    controlTitle.textContent = btn[i][j];
+    updateMap(predicate);
+  }
+}
+
+control.addEventListener('click', changeMap);

@@ -199,46 +199,77 @@ export function clickCircle(e) {
   }
 }
 
-function statusCircle(obj, circle, status, i) {
-  let key = status;
-  let name = status;
+function statusCircle(obj, circle, status, i, predicate = 'false') {
   circle.on({
     mouseover: getHoverCountry,
     mouseout: resetHoverCountry,
     click: clickCircle,
   });
-  if (status === 'confirmed') {
-    key = 'cases';
-    name = 'confirmed';
+  if (predicate !== 'false') {
+    const names = [
+      'cases', 'deaths', 'recovered',
+      'today cases', 'today deaths', 'today recovered',
+      'cases per100k', 'deaths per100k', 'recovered per100k',
+      'today cases per100k', 'today deaths per100k', 'today recovered per100k',
+    ];
+    if ((predicate > 5) && (predicate < 9)) {
+      const value = ((obj.propForCoords[i][status] / 10));
+      circle.addTo(map)
+        .bindTooltip(`${obj.propForCoords[i].country}, ${names[predicate]}: ${value}`);
+    } else if (predicate > 8) {
+      const value = ((obj.propForCoords[i][status] / obj.propForCoords[i].population) * 100000)
+        .toFixed(3);
+      circle.addTo(map)
+        .bindTooltip(`${obj.propForCoords[i].country}, ${names[predicate]}: ${value}`);
+    } else {
+      circle.addTo(map)
+        .bindTooltip(`${obj.propForCoords[i].country},
+        ${names[predicate]}: ${obj.propForCoords[i][status]}`);
+    }
+  } else {
+    let key = status;
+    if (status === 'confirmed') {
+      key = 'cases';
+    }
+    circle.addTo(map)
+      .bindTooltip(`${obj.propForCoords[i].country}, ${key}: ${obj.propForCoords[i][key]}`);
   }
-
-  circle.addTo(map)
-    .bindTooltip(`${obj.propForCoords[i].country}, ${name}: ${obj.propForCoords[i][key]}`);
 }
 
-function getRadius(obj, i, coefficient, status) {
+function getRadius(obj, i, coefficient, status, predicate = 'false') {
+  if (predicate !== 'false') {
+    if ((predicate === 0) || (predicate === 2)) {
+      return Math.sqrt(obj.propForCoords[i][status]) * 200;
+    }
+    if (predicate === 7) {
+      return obj.propForCoords[i][status] * 200;
+    }
+    if ((predicate === 4) || (predicate === 10)) {
+      return obj.propForCoords[i][status] * 500;
+    }
+    if (((predicate > 5) && (predicate < 9)) || (predicate === 1)) {
+      return obj.propForCoords[i][status] * 5;
+    }
+    return obj.propForCoords[i][status] * 10;
+  }
   let key = status;
   if (status === 'confirmed') {
     key = 'cases';
   }
-  if (status === 'deaths') {
-    return obj.propForCoords[i][key] * 2;
-  }
-
   return Math.sqrt(obj.propForCoords[i][key]) * coefficient;
 }
 
-export function getCircleCases(obj, circleOptions, status) {
+export function getCircleCases(obj, circleOptions, status, predicate = 'false') {
   for (let i = 0; i < obj.propForCoords.length; i += 1) {
     const circleCenter = [
       obj.propForCoords[i].countryInfo.lat,
       obj.propForCoords[i].countryInfo.long,
     ];
     const jusCoefficient = 200;
-    const radius = getRadius(obj, i, jusCoefficient, status);
+    const radius = getRadius(obj, i, jusCoefficient, status, predicate);
     const circle = L.circle(circleCenter, radius, circleOptions);
     markers.push(circle);
-    statusCircle(obj, circle, status, i);
+    statusCircle(obj, circle, status, i, predicate);
   }
 }
 

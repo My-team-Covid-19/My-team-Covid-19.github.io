@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-// const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -67,16 +67,11 @@ module.exports = {
     // new CopyPlugin({
     //   patterns: [
     //     {
-    //       from: path.resolve(__dirname, 'src/data-txt'),
-    //       to: path.resolve(__dirname, 'dist/data-txt'),
-    //     },
-    //   ],
-    //     {
     //       from: path.resolve(__dirname, 'src/assets/img'),
     //       to: path.resolve(__dirname, 'dist/img'),
     //     },
     //     {
-    //       from: path.resolve(__dirname, 'src/assets/audio'),
+    //       from: path.resolve(__dirname, 'src/assets/sounds'),
     //       to: path.resolve(__dirname, 'dist/audio'),
     //     },
     //   ],
@@ -121,8 +116,4 @@ module.exports = {
       },
     ],
   },
-  // externals: {
-  //   fs: 'commonjs fs',
-  // },
-  // target: 'node',
 };

@@ -1,7 +1,7 @@
 export default function showList(rebased, data) {
   const list = document.querySelector('.table2 > ul');
   const title = document.querySelector('.cases.container > .title');
-  const controlTitle = document.querySelector('.control-title');
+  const controlTitle = document.querySelector('.table2 > .control .control-title');
   const subtitle = document.querySelector('.cases.container > .subtitle');
   const rebasedSelector = [
     ['totalCases', 'totalDeaths', 'totalRecovered'],
@@ -12,7 +12,6 @@ export default function showList(rebased, data) {
   const digitSpread = () => {
     list.querySelectorAll('li').forEach((elem) => {
       const text = elem.querySelector('.count').textContent;
-      console.log(text);
       elem.querySelector('.count').replaceWith(text);
     });
   };
